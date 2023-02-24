@@ -1,0 +1,10 @@
+#ifndef _PWRCTRL_APP_CONFIG_H_
+#define _PWRCTRL_APP_CONFIG_H_
+
+
+#define APP_CONFIG_SSR_PINS {0, 0, 0}
+#define APP_CONFIG_UART_RX 0
+#define APP_CONFIG_UART_NUM UART_NUM_1
+
+
+#endif
