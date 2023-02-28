@@ -1,0 +1,15 @@
+name: CI
+
+on:
+  push:
+    branches: [ master ]
+  pull_request:
+    branches: [ master ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    container: espressif/idf:release-v5.0
+    steps:
+    - uses: actions/checkout@v3
+    - run: idf.py build
