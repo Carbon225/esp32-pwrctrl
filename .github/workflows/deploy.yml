@@ -23,6 +23,6 @@ jobs:
       run: cp build/pwrctrl.bin firmware.bin
 
     - name: Create release
-      uses: actions/create-release@v1
+      uses: ncipollo/release-action@v1
       with:
         artifacts: firmware.bin
