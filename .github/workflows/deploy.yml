@@ -20,9 +20,11 @@ jobs:
         target: esp32
 
     - name: Prepare firmware
-      run: cp build/pwrctrl.bin firmware.bin
+      run: |
+        cp build/pwrctrl.bin firmware.bin
+        git describe --tags --always --dirty > firmware.version
 
     - name: Create release
       uses: ncipollo/release-action@v1
       with:
-        artifacts: firmware.bin
+        artifacts: firmware.*
