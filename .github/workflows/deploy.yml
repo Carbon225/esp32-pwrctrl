@@ -9,20 +9,20 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
+
     - name: Checkout
       uses: actions/checkout@v3
+
     - name: Build
       uses: espressif/esp-idf-ci-action@v1
       with:
         esp_idf_version: v5.0.1
         target: esp32
+
     - name: Prepare firmware
-      run: |
-        cp build/pwrctrl.bin firmware.bin
-        git describe --tags --always --dirty > firmware.version
-    - name: Commit and push
-      uses: EndBug/add-and-commit@v9
+      run: cp build/pwrctrl.bin firmware.bin
+
+    - name: Create release
+      uses: actions/create-release@v1
       with:
-        add: 'firmware.*'
-        message: 'Update firmware'
-        default_author: github_actions
+        artifacts: firmware.bin
