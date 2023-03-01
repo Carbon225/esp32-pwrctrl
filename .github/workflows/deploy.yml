@@ -16,7 +16,9 @@ jobs:
         esp_idf_version: v5.0.1
         target: esp32
     - name: Prepare firmware
-      run: cp build/pwrctrl.bin firmware.bin
+      run: |
+        cp build/pwrctrl.bin firmware.bin
+        git rev-parse HEAD > firmware.sha
     - name: Commit and push
       uses: EndBug/add-and-commit@v9
       with:
