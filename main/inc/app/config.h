@@ -2,8 +2,11 @@
 #define _PWRCTRL_APP_CONFIG_H_
 
 
-#define APP_CONFIG_SSR_PINS {0, 0, 0}
-#define APP_CONFIG_UART_RX 0
+#include <driver/gpio.h>
+
+
+#define APP_CONFIG_SSR_PINS {GPIO_NUM_20, GPIO_NUM_21, GPIO_NUM_22}
+#define APP_CONFIG_UART_RX GPIO_NUM_16
 #define APP_CONFIG_UART_NUM UART_NUM_1
 
 
