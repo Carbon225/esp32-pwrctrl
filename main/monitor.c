@@ -29,7 +29,6 @@ static void rx_task(void *pv)
 
 void app_monitor_init(void)
 {
-    const uart_port_t uart_num = UART_NUM_2;
     uart_config_t uart_config = {
         .baud_rate = BAUD_RATE,
         .data_bits = UART_DATA_8_BITS,
@@ -37,7 +36,7 @@ void app_monitor_init(void)
         .stop_bits = UART_STOP_BITS_1,
         .flow_ctrl = UART_HW_FLOWCTRL_DISABLE,
     };
-    ESP_ERROR_CHECK(uart_param_config(uart_num, &uart_config));
+    ESP_ERROR_CHECK(uart_param_config(APP_CONFIG_UART_NUM, &uart_config));
 
     ESP_ERROR_CHECK(uart_set_pin(
         APP_CONFIG_UART_NUM,
