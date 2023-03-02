@@ -7,6 +7,7 @@
 #include <esp_crt_bundle.h>
 #include <esp_app_desc.h>
 #include <esp_https_ota.h>
+#include <esp_ota_ops.h>
 
 
 #define URL_LATEST_VERSION "https://github.com/Carbon225/esp32-pwrctrl/releases/latest/download/firmware.version"
