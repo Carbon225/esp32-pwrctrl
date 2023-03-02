@@ -139,5 +139,5 @@ void ota_task(void *pv)
 
 void app_ota_start(void)
 {
-    // xTaskCreate(&ota_task, "ota_task", 8192, NULL, 5, NULL);
+    xTaskCreate(&ota_task, "ota_task", 8192, NULL, 5, NULL);
 }
