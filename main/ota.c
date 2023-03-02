@@ -115,6 +115,7 @@ void ota_task(void *pv)
             esp_http_client_config_t config = {
                 .url = URL_FIRMWARE,
                 .crt_bundle_attach = esp_crt_bundle_attach,
+                .buffer_size_tx = 1024,
             };
             esp_https_ota_config_t ota_config = {
                 .http_config = &config,
