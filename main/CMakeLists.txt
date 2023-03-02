@@ -6,5 +6,6 @@ idf_component_register(
         control.c
         nvs.c
         ota.c
+        wifi.c
     INCLUDE_DIRS inc
 )
