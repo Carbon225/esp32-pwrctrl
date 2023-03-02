@@ -15,17 +15,26 @@
 #define OTA_PERIOD (1000 * 60 / portTICK_PERIOD_MS)
 
 
+typedef struct
+{
+    char data[MAX_HTTP_OUTPUT_BUFFER];
+    size_t length;
+} http_response_buffer_t;
+
+
 static const char TAG[] = "ota";
 
 
 static esp_err_t http_event_handler(esp_http_client_event_t *evt)
 {
+    http_response_buffer_t *buf = (http_response_buffer_t *) evt->user_data;
     switch (evt->event_id)
     {
         case HTTP_EVENT_ON_DATA:
             if (!esp_http_client_is_chunked_response(evt->client))
             {
-                memcpy(evt->user_data, evt->data, evt->data_len);
+                memcpy(buf->data + buf->length, evt->data, evt->data_len);
+                buf->length += evt->data_len;
             }
             break;
         default:
@@ -37,12 +46,12 @@ static esp_err_t http_event_handler(esp_http_client_event_t *evt)
 static esp_err_t fetch_latest_version(char *version)
 {
     esp_err_t err;
-    char local_response_buffer[MAX_HTTP_OUTPUT_BUFFER] = {0};
+    http_response_buffer_t response_buffer = {0};
 
     esp_http_client_config_t config = {
         .url = URL_LATEST_VERSION,
         .event_handler = http_event_handler,
-        .user_data = local_response_buffer,
+        .user_data = &response_buffer,
         .crt_bundle_attach = esp_crt_bundle_attach,
     };
     
@@ -51,10 +60,11 @@ static esp_err_t fetch_latest_version(char *version)
     err = esp_http_client_perform(client);
     if (err == ESP_OK)
     {
-        char *end = local_response_buffer + strlen(local_response_buffer) - 1;
-        while (end > local_response_buffer && isspace((unsigned char) *end)) end--;
+        char *start = response_buffer.data;
+        char *end = start + strlen(start) - 1;
+        while (end > start && isspace((unsigned char) *end)) end--;
         *(end + 1) = '\0';
-        strcpy(version, local_response_buffer);
+        strcpy(version, start);
     }
     else
     {
