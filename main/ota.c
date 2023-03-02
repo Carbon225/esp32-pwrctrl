@@ -6,6 +6,7 @@
 #include <esp_http_client.h>
 #include <esp_crt_bundle.h>
 #include <esp_app_desc.h>
+#include <esp_https_ota.h>
 
 
 #define URL_LATEST_VERSION "https://github.com/Carbon225/esp32-pwrctrl/releases/latest/download/firmware.version"
@@ -100,11 +101,14 @@ void ota_task(void *pv)
         if (should_update())
         {
             ESP_LOGI(TAG, "Starting OTA");
-            esp_https_ota_config_t config = {
+            esp_http_client_config_t config = {
                 .url = URL_FIRMWARE,
                 .crt_bundle_attach = esp_crt_bundle_attach,
             };
-            esp_err_t err = esp_https_ota(&config);
+            esp_https_ota_config_t ota_config = {
+                .http_config = &config,
+            };
+            esp_err_t err = esp_https_ota(&ota_config);
             if (err == ESP_OK)
             {
                 ESP_LOGI(TAG, "OTA successful, restarting");
