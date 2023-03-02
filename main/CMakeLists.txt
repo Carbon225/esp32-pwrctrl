@@ -5,5 +5,6 @@ idf_component_register(
         monitor.c
         control.c
         nvs.c
+        ota.c
     INCLUDE_DIRS inc
 )

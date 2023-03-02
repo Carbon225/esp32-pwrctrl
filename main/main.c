@@ -2,6 +2,7 @@
 #include <app/fb.h>
 #include <app/monitor.h>
 #include <app/control.h>
+#include <app/ota.h>
 
 
 void app_main(void)
@@ -15,4 +16,5 @@ void app_main(void)
     app_fb_start();
     app_monitor_start();
     app_control_start();
+    app_ota_start();
 }
