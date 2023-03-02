@@ -95,6 +95,7 @@ bool should_update(void)
     if (strcmp(latest_version, app_desc->version) == 0)
     {
         ESP_LOGI(TAG, "No update available");
+        ESP_ERROR_CHECK(esp_ota_mark_app_valid_cancel_rollback());
         return false;
     }
     else
