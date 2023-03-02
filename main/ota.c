@@ -53,6 +53,7 @@ static esp_err_t fetch_latest_version(char *version)
         .event_handler = http_event_handler,
         .user_data = &response_buffer,
         .crt_bundle_attach = esp_crt_bundle_attach,
+        .buffer_size_tx = 1024,
     };
     
     esp_http_client_handle_t client = esp_http_client_init(&config);
