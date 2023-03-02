@@ -32,15 +32,19 @@ void app_nvs_config_get(app_nvs_key_t key, void *value)
     switch (key)
     {
         case APP_NVS_KEY_WIFI_SSID:
+            len = 32;
             ESP_ERROR_CHECK(nvs_get_str(handle, KEY_WIFI_SSID, value, &len));
             break;
         case APP_NVS_KEY_WIFI_PASSWORD:
+            len = 64;
             ESP_ERROR_CHECK(nvs_get_str(handle, KEY_WIFI_PASSWORD, value, &len));
             break;
         case APP_NVS_KEY_FB_EMAIL:
+            len = 64;
             ESP_ERROR_CHECK(nvs_get_str(handle, KEY_FB_EMAIL, value, &len));
             break;
         case APP_NVS_KEY_FB_PASSWORD:
+            len = 64;
             ESP_ERROR_CHECK(nvs_get_str(handle, KEY_FB_PASSWORD, value, &len));
             break;
     }
